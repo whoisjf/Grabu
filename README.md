@@ -7,7 +7,9 @@ Built this because every "Waybackurls but threaded" script either falls over on 
 ## Install
 
 ```
-pip install requests
+git clone https://github.com/whoisjf/Grabu.git
+cd Grabu
+pip install requests (If not installed)
 ```
 
 ## Usage

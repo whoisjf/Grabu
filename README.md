@@ -31,6 +31,7 @@ python3 grabu.py -f subdomains.txt -o combined.txt -t 20 --rps 2 -s wayback
 | flag | what it does | default |
 |---|---|---|
 | `-f, --file` | txt file, one subdomain per line | required |
+| `--outdir` | directory where all output files get saved | `results`
 | `-o, --output` | where the urls get written | `combined.txt` |
 | `-t, --threads` | worker threads pulling from the queue | `20` |
 | `--rps` | starting requests/sec per source — this ramps up on its own | `2.0` |
@@ -48,13 +49,11 @@ python3 grabu.py -f subdomains.txt -o combined.txt -t 20 --rps 2 -s wayback
 | `-v, --verbose` | print every request as it fires and lands | off |
 | `-q, --quiet` | periodic progress updates instead of one line per subdomain, good for huge lists | off |
 | `--fresh` | ignore a previous partial run and start clean | off |
-| `--outdir` | directory where all output files get saved | `results`
 `python3 grabu.py -h` for the long version of all of these.
 
 ## What you actually get
-
-- **`combined.txt`** — every unique url, static-asset noise already stripped out. filtering uses the real archived mimetype when available, not just a guess off the file extension, so a no-extension route that served json back in 2019 still gets caught
 - **`results`** - directory where all output files get saved
+- **`combined.txt`** — every unique url, static-asset noise already stripped out. filtering uses the real archived mimetype when available, not just a guess off the file extension, so a no-extension route that served json back in 2019 still gets caught
 - **`combined.interesting.txt`** — the subset that's actually worth your time, grouped by severity when it prints to your terminal: an actual leaked key/token sitting in the url itself comes first, then credentials/keys, backups, configs, version control leftovers, docs, admin/debug stuff. each hit shows the year it was first archived if we know it
 - **`combined.new.txt`** — only shows up if you've scanned this same output before. rerun grabu later and it'll tell you what's new since last time instead of making you diff two giant files yourself
 - **`combined.params.txt`** — every unique query param name seen, ready to feed into ffuf or whatever
